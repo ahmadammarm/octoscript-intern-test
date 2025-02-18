@@ -1,0 +1,149 @@
+basePath: /api/
+definitions:
+  model.Post:
+    description: Post model info
+    properties:
+      brand:
+        example: Nike Indonesia
+        type: string
+      created_at:
+        example: "2025-02-21T23:59:59Z"
+        type: string
+      due_date:
+        example: "2025-02-21T23:59:59Z"
+        type: string
+      id:
+        type: integer
+      platform:
+        example: Instagram
+        type: string
+      price:
+        example: 400000
+        type: number
+      status:
+        enum:
+        - pending
+        - in_progress
+        - completed
+        example: completed
+        type: string
+      title:
+        example: Sepatu Running
+        type: string
+      updated_at:
+        example: "2025-02-21T23:59:59Z"
+        type: string
+    required:
+    - brand
+    - due_date
+    - platform
+    - status
+    - title
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: A ToDo List Management API for Social Media Posts
+  title: Todo List Social Media Post Management API
+  version: "1.0"
+paths:
+  /posts:
+    get:
+      description: Get all social media post tasks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Post'
+            type: array
+      summary: Get all posts
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: Create a new social media post task
+      parameters:
+      - description: Post object
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/model.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Post'
+      summary: Create a new post
+      tags:
+      - posts
+  /posts/{id}:
+    delete:
+      description: Delete a social media post task
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete a post
+      tags:
+      - posts
+    get:
+      description: Get a social media post task by ID
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Post'
+      summary: Get a post
+      tags:
+      - posts
+    put:
+      consumes:
+      - application/json
+      description: Update a social media post task
+      parameters:
+      - description: Post ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Post object
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/model.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Post'
+      summary: Update a post
+      tags:
+      - posts
+swagger: "2.0"
